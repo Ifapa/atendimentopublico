@@ -900,10 +900,41 @@ a.VQXTP-ModeBoardShow {
 .VQXTP-ReloadContainer {
 	align-items: center;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	margin: 5px;
 	padding: 0;
 	width: 98%;
+}
+.VQXTP-LeftControls {
+	align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	gap: .5em;
+}
+.VQXTP-RightControls {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+	gap: .4em;
+}
+.VQXTP-LinkCC {
+	align-items: center;
+	background: #c62828;
+	border-radius: 4px;
+	color: #fff;
+	display: inline-flex;
+	font-weight: 700;
+	padding: 0.25em 0.6em;
+	text-decoration: none;
+}
+.VQXTP-LinkCC:hover {
+	background: #b71c1c;
+	color: #fff;
+}
+.VQXTP-LinkCC .VQXTP-CCLabel {
+	color: inherit;
+	font-size: 0.9em;
+	line-height: 1.4;
 }
 
 .VQXTP-previewQuestions {

@@ -434,6 +434,8 @@ getDirectoryURL:function() {
         msgs.msgNextQuestion = msgs.msgNextQuestion || "Next question";
         msgs.msgLastQuestion = msgs.msgLastQuestion || "Last question";
         msgs.msgQuestionNumber = msgs.msgQuestionNumber || "Question number";
+        msgs.msgToggleCCOn = msgs.msgToggleCCOn || "Desligar Legendas";
+        msgs.msgToggleCCOff = msgs.msgToggleCCOff || "Ligar Legendas";
         html += '<div class="VQXTP-MainContainer"  id="vquextMainContainer-' + instance + '">\
         <div class="VQXTP-GameMinimize" id="vquextGameMinimize-' + instance + '">\
             <a href="#" class="VQXTP-LinkMaximize" id="vquextLinkMaximize-' + instance + '" title="' + msgs.msgMaximize + '"><img src="' + path + 'vquextIcon.png" class="VQXTP-IconMinimize VQXTP-Activo" alt="' + msgs.msgMaximize + '">\
@@ -547,35 +549,43 @@ getDirectoryURL:function() {
                 </div>\
             </div>\
             <div class="VQXTP-ReloadContainer" id="vquextVideoReloadContainer-' + instance + '">\
-                <a href="#" class="VQXTP-LinkReload" id="vquextReeload-' + instance + '" title="' + msgs.msgReloadVideo + '">\
-                    <strong><span class="sr-av">' + msgs.msgReloadVideo + ':</span></strong>\
-                    <div class="exeQuextIcons exeQuextIcons-Reload VQXTP-Activo"></div>\
-                </a>\
-                <a href="#" id="vquextFirst-' + instance + '" title="' + msgs.msgFirstQuestion + '">\
-                    <strong><span class="sr-av">' + msgs.msgFirstQuestion + ':</span></strong>\
-                    <div class=" exeQuextIcons exeQuextIcons-First VQXTP-Activo"></div>\
-                </a>\
-                <a href="#" id="vquextPrevious-' + instance + '" title="' + msgs.msgPreviousQuestion + '">\
-                    <strong><span class="sr-av">' + msgs.msgPreviousQuestion + ':</span></strong>\
-                    <div class=" exeQuextIcons exeQuextIcons-Previous VQXTP-Activo"></div>\
-                </a>\
-                <span class="sr-av">' + msgs.msgQuestionNumber + '</span><span class="VQXTP-NumberQuestion" id="vquextNumberQuestion-' + instance + '">1</span>\
-                <a href="#" id="vquextPauseVideo-' + instance + '" title="' + msgs.msgPauseVideo + '">\
-                    <strong><span class="sr-av">' + msgs.msgPauseVideo + ':</span></strong>\
-                    <div class=" exeQuextIcons exeQuextIcons-PauseVideo VQXTP-Activo"></div>\
-                </a>\
-                <a href="#" id="vquextNext-' + instance + '" title="' + msgs.msgNextQuestion + '">\
-                    <strong><span class="sr-av">' + msgs.msgNextQuestion + ':</span></strong>\
-                    <div class=" exeQuextIcons exeQuextIcons-Next VQXTP-Activo"></div>\
-                </a>\
-                <a href="#" id="vquextLast-' + instance + '" title="' + msgs.msgLastQuestion + '">\
-                    <strong><span class="sr-av">' + msgs.msgLastQuestion + ':</span></strong>\
-                    <div class=" exeQuextIcons exeQuextIcons-Last VQXTP-Activo"></div>\
-                </a>\
-                <a href="#" id="vquextPreview-' + instance + '" title="' + msgs.msgPreviewQuestions + '">\
-                    <strong><span class="sr-av">' + msgs.msgPreviewQuestions + ':</span></strong>\
-                    <div class="exeQuextIcons exeQuextIcons-Preview VQXTP-Activo"></div>\
-                </a>\
+                <div class="VQXTP-LeftControls">\
+                    <a href="#" id="vquextToggleCC-' + instance + '" class="VQXTP-LinkCC" title="' + msgs.msgToggleCCOn + '">\
+                        <strong><span class="sr-av">' + msgs.msgToggleCCOn + ':</span></strong>\
+                        <span class="VQXTP-CCLabel VQXTP-Activo">' + msgs.msgToggleCCOn + '</span>\
+                    </a>\
+                </div>\
+                <div class="VQXTP-RightControls">\
+                    <a href="#" class="VQXTP-LinkReload" id="vquextReeload-' + instance + '" title="' + msgs.msgReloadVideo + '">\
+                        <strong><span class="sr-av">' + msgs.msgReloadVideo + ':</span></strong>\
+                        <div class="exeQuextIcons exeQuextIcons-Reload VQXTP-Activo"></div>\
+                    </a>\
+                    <a href="#" id="vquextFirst-' + instance + '" title="' + msgs.msgFirstQuestion + '">\
+                        <strong><span class="sr-av">' + msgs.msgFirstQuestion + ':</span></strong>\
+                        <div class=" exeQuextIcons exeQuextIcons-First VQXTP-Activo"></div>\
+                    </a>\
+                    <a href="#" id="vquextPrevious-' + instance + '" title="' + msgs.msgPreviousQuestion + '">\
+                        <strong><span class="sr-av">' + msgs.msgPreviousQuestion + ':</span></strong>\
+                        <div class=" exeQuextIcons exeQuextIcons-Previous VQXTP-Activo"></div>\
+                    </a>\
+                    <span class="sr-av">' + msgs.msgQuestionNumber + '</span><span class="VQXTP-NumberQuestion" id="vquextNumberQuestion-' + instance + '">1</span>\
+                    <a href="#" id="vquextPauseVideo-' + instance + '" title="' + msgs.msgPauseVideo + '">\
+                        <strong><span class="sr-av">' + msgs.msgPauseVideo + ':</span></strong>\
+                        <div class=" exeQuextIcons exeQuextIcons-PauseVideo VQXTP-Activo"></div>\
+                    </a>\
+                    <a href="#" id="vquextNext-' + instance + '" title="' + msgs.msgNextQuestion + '">\
+                        <strong><span class="sr-av">' + msgs.msgNextQuestion + ':</span></strong>\
+                        <div class=" exeQuextIcons exeQuextIcons-Next VQXTP-Activo"></div>\
+                    </a>\
+                    <a href="#" id="vquextLast-' + instance + '" title="' + msgs.msgLastQuestion + '">\
+                        <strong><span class="sr-av">' + msgs.msgLastQuestion + ':</span></strong>\
+                        <div class=" exeQuextIcons exeQuextIcons-Last VQXTP-Activo"></div>\
+                    </a>\
+                    <a href="#" id="vquextPreview-' + instance + '" title="' + msgs.msgPreviewQuestions + '">\
+                        <strong><span class="sr-av">' + msgs.msgPreviewQuestions + ':</span></strong>\
+                        <div class="exeQuextIcons exeQuextIcons-Preview VQXTP-Activo"></div>\
+                    </a>\
+                </div>\
             </div>\
             <div class="VQXTP-previewQuestionsDiv" id="vquextpreviewQuestionsDiv-' + instance + '">\
                 <p class="VQXTP-PreviewQuestionsTitle">' + msgs.msgQuestions + '</p>\
@@ -671,6 +681,8 @@ getDirectoryURL:function() {
         mOptions.evaluation = typeof mOptions.evaluation == "undefined" ? false : mOptions.evaluation;
         mOptions.evaluationID = typeof mOptions.evaluationID == "undefined" ? '' : mOptions.evaluationID;
         mOptions.id = typeof mOptions.id == "undefined" ? false : mOptions.id;
+        mOptions.ccEnabled = true;
+        mOptions.ccLang = mOptions.ccLang || 'pt';
 
         if (mOptions.videoType == 1 || mOptions.videoType == 2) {
             mOptions.idVideoQuExt = mOptions.videoLocal;
@@ -748,7 +760,9 @@ getDirectoryURL:function() {
                 playerVars: {
                     'color': 'white',
                     'autoplay': 0,
-                    'controls': 0
+                    'controls': 1,
+                    'cc_load_policy': 1,
+                    'cc_lang_pref': 'pt'
                 },
                 events: {
                     'onReady': $eXeVideoQuExt.onPlayerReady,
@@ -788,7 +802,9 @@ getDirectoryURL:function() {
             playerVars: {
                 'color': 'white',
                 'autoplay': 0,
-                'controls': 0
+                'controls': 1,
+                'cc_load_policy': 1,
+                'cc_lang_pref': 'pt'
             },
             events: {
                 'onReady': $eXeVideoQuExt.onPlayerReady,
@@ -916,6 +932,48 @@ getDirectoryURL:function() {
             }
         }
     },
+    toggleCaptions: function (instance) {
+        var mOptions = $eXeVideoQuExt.options[instance];
+        if (mOptions.videoType > 0) {
+            return;
+        }
+        mOptions.ccEnabled = !mOptions.ccEnabled;
+        if (mOptions.player && typeof mOptions.player.setOption == "function") {
+            try {
+                if (mOptions.ccEnabled) {
+                    if (typeof mOptions.player.loadModule == "function") {
+                        mOptions.player.loadModule('captions');
+                    }
+                    mOptions.player.setOption('captions', 'track', {
+                        'languageCode': mOptions.ccLang
+                    });
+                } else {
+                    mOptions.player.setOption('captions', 'track', {});
+                }
+            } catch (e) {}
+        }
+        $eXeVideoQuExt.updateCCToggle(instance);
+    },
+    updateCCToggle: function (instance) {
+        var mOptions = $eXeVideoQuExt.options[instance],
+            $btn = $('#vquextToggleCC-' + instance);
+        if ($btn.length === 0) {
+            return;
+        }
+        if (mOptions.videoType > 0) {
+            $btn.hide();
+            return;
+        }
+        var isOn = mOptions.ccEnabled;
+        var label = isOn ? mOptions.msgs.msgToggleCCOn : mOptions.msgs.msgToggleCCOff;
+        $btn.attr('title', label);
+        $btn.find('.VQXTP-CCLabel').text(label);
+        if (isOn) {
+            $btn.addClass('VQXTP-Activo');
+        } else {
+            $btn.removeClass('VQXTP-Activo');
+        }
+    },
     extractURLGD: function (urlmedia) {
         var sUrl = urlmedia;
         if (urlmedia.toLowerCase().indexOf("https://drive.google.com") == 0 && urlmedia.toLowerCase().indexOf("sharing") != -1) {
@@ -973,6 +1031,10 @@ getDirectoryURL:function() {
             $eXeVideoQuExt.pauseVideoQuestion(instance, pause);
 
         });
+        $('#vquextToggleCC-' + instance).click(function (e) {
+            e.preventDefault();
+            $eXeVideoQuExt.toggleCaptions(instance);
+        });
         $('#vquextpreviewQuestionsClose-' + instance).click(function (e) {
             e.preventDefault();
             $('#vquextpreviewQuestionsDiv-' + instance).slideUp();
@@ -1021,6 +1083,7 @@ getDirectoryURL:function() {
         $('#vquextPNumber-' + instance).text(mOptions.numberQuestions);
         $('#vquextGameContainer-' + instance + ' .VQXTP-StartGame').show();
         $('#vquextQuestionDiv-' + instance).hide();
+        $eXeVideoQuExt.updateCCToggle(instance);
         if (mOptions.itinerary.showCodeAccess) {
             $('#vquextMesajeAccesCodeE-' + instance).text(mOptions.itinerary.messageCodeAccess);
             $('#vquextMesajeAccesCodeE-' + instance).text(mOptions.itinerary.messageCodeAccess);
@@ -1344,6 +1407,7 @@ getDirectoryURL:function() {
         $('#vquextPreview-' + instance).hide();
         $('#vquextReeload-' + instance).hide();
         $('#vquextVideoReloadContainer-' + instance).hide();
+        $('#vquextToggleCC-' + instance).hide();
         if (mOptions.reloadQuestion || mOptions.previewQuestions || mOptions.pauseVideo || mOptions.isNavigable) {
             $('#vquextVideoReloadContainer-' + instance).show();
         }
@@ -1370,6 +1434,8 @@ getDirectoryURL:function() {
                 $('#vquextNext-' + instance).show();
                 $('#vquextLast-' + instance).show();
             }
+            $('#vquextToggleCC-' + instance).show();
+            $eXeVideoQuExt.updateCCToggle(instance);
 
         }
     },
