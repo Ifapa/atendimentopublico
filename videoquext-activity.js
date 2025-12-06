@@ -691,6 +691,7 @@ getDirectoryURL:function() {
         } else {
             mOptions.idVideoQuExt = $eXeVideoQuExt.getIDYoutube(mOptions.idVideoQuExt);
         }
+        mOptions.initialCaptionTrack = null;
         for (var i = 0; i < mOptions.questionsGame.length; i++) {
             if (mOptions.customScore) {
                 mOptions.scoreTotal += mOptions.questionsGame[i].customScore;
@@ -940,13 +941,21 @@ getDirectoryURL:function() {
         mOptions.ccEnabled = !mOptions.ccEnabled;
         if (mOptions.player && typeof mOptions.player.setOption == "function") {
             try {
+                if (mOptions.initialCaptionTrack === null && typeof mOptions.player.getOption == "function") {
+                    mOptions.initialCaptionTrack = mOptions.player.getOption('captions', 'track');
+                }
                 if (mOptions.ccEnabled) {
                     if (typeof mOptions.player.loadModule == "function") {
                         mOptions.player.loadModule('captions');
                     }
-                    mOptions.player.setOption('captions', 'track', {
-                        'languageCode': mOptions.ccLang
-                    });
+                    var track = mOptions.initialCaptionTrack;
+                    if (track && track.languageCode) {
+                        mOptions.player.setOption('captions', 'track', track);
+                    } else {
+                        mOptions.player.setOption('captions', 'track', {
+                            'languageCode': mOptions.ccLang
+                        });
+                    }
                 } else {
                     mOptions.player.setOption('captions', 'track', {});
                 }
