@@ -487,11 +487,8 @@ loadDataGame: function (data) {
     var table = "";
     var z = 0;
     var ud = $eXeInforme.options.userData ? "flex" : "none";
-    if (data) {
-      $("#informeMessage").text(
-        $eXeInforme.options.msgs.msgCompletedActivities
-      );
-    } else {
+    var activities = Array.isArray(data) ? data.filter(Boolean) : [];
+    if (activities.length === 0) {
       $("#informeMessage").html(
         "<p>" +
           $eXeInforme.options.msgs.msgNoCompletedActivities +
@@ -502,14 +499,28 @@ loadDataGame: function (data) {
           ) +
           "</p>"
       );
+      $("#informeData").empty();
+      return;
     }
+    $("#informeMessage").text($eXeInforme.options.msgs.msgCompletedActivities);
     table +=
       '<div class="INFMP-Node">' +
       $eXeInforme.options.msgs.mgsSections +
       ":</div>";
     for (var nod = 0; nod < $eXeInforme.menusNav.length; nod++) {
       var node = $eXeInforme.menusNav[nod],
-        margin = (node.position.split(".").length - 2) * 16 + "px";
+        margin = (node.position.split(".").length - 2) * 16 + "px",
+        activitiesByNode = activities.filter(function (activity) {
+          var lnode =
+            activity.node && activity.node.trim
+              ? activity.node.trim().replace(/\s\s+/g, " ")
+              : "";
+          return $eXeInforme.menusNav[nod].text == lnode;
+        });
+
+      if (activitiesByNode.length === 0) {
+        continue;
+      }
 
       table +=
         '<div class="INFMP-Node" style="margin-left:' +
@@ -522,48 +533,50 @@ loadDataGame: function (data) {
       var j = 0,
         bcolor = "#dddddd",
         color = "#007F5F";
-      if (data) {
-        for (var acts = 0; acts < data.length; acts++) {
-          var lnode =  data[acts].node
-          if( data[acts].node.length > 0){
-            lnode =  data[acts].node.trim().replace(/\s\s+/g, ' ') 
-          }
-          var lnode =  data[acts].node.trim().replace(/\s\s+/g, ' ') || ''
-          if ($eXeInforme.menusNav[nod].text == lnode) {
-            var date = $eXeInforme.options.showDate
-              ? '<span id="informeDate">(' + data[acts].date + ") </span>"
-              : "";
-            var type = $eXeInforme.options.showTypeGame
-              ? '<span id="informeType">. ' +
-                $eXeInforme.options.msgs.msgType +
-                ":&nbsp" +
-                data[acts].type +
-                " </span>"
-              : "";
-            color = parseFloat(data[acts].score) < 5 ? "#B61E1E" : "#007F5F";
-            table += $eXeInforme.createRowIdevice(
-              data[acts],
-              bcolor,
-              color,
-              type,
-              date,
-              node,
-              margin
-            );
-            j++;
-            z++;
-            scoretotal += parseFloat(data[acts].score);
-            if (j % 2 == 0) {
-              bcolor = "#dddddd";
-            } else {
-              bcolor = "#f9f9f9";
-            }
-          }
-        }
-      }
+      activitiesByNode.forEach(function (activity) {
+        var date = $eXeInforme.options.showDate
+            ? '<span id="informeDate">(' + activity.date + ") </span>"
+            : "",
+          type = $eXeInforme.options.showTypeGame
+            ? '<span id="informeType">. ' +
+              $eXeInforme.options.msgs.msgType +
+              ":&nbsp" +
+              activity.type +
+              " </span>"
+            : "";
+        color = parseFloat(activity.score) < 5 ? "#B61E1E" : "#007F5F";
+        table += $eXeInforme.createRowIdevice(
+          activity,
+          bcolor,
+          color,
+          type,
+          date,
+          node,
+          margin
+        );
+        j++;
+        z++;
+        scoretotal += parseFloat(activity.score);
+        bcolor = j % 2 == 0 ? "#dddddd" : "#f9f9f9";
+      });
     }
-    var scorepartial = z > 0 ? (scoretotal / z).toFixed(2) : "0.00";
-    scoretotal = (scoretotal / num).toFixed(2);
+    if (z === 0) {
+      $("#informeMessage").html(
+        "<p>" +
+          $eXeInforme.options.msgs.msgNoCompletedActivities +
+          "</p><p>" +
+          $eXeInforme.options.msgs.msgNoPendientes.replace(
+            "%s",
+            $eXeInforme.options.number
+          ) +
+          "</p>"
+      );
+      $("#informeData").empty();
+      return;
+    }
+    var scorepartial = (scoretotal / z).toFixed(2);
+    var denominator = num > 0 ? num : z;
+    scoretotal = (scoretotal / denominator).toFixed(2);
     var bgc = scoretotal < 5 ? "#B61E1E" : "#007F5F";
     table +=
       '<div class="INFMP-GameScore" style="background-color:' +
